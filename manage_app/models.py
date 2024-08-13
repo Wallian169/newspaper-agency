@@ -4,7 +4,9 @@ from django.db import models
 
 
 class Redactor(AbstractUser):
-    years_of_experience = models.PositiveSmallIntegerField()
+    years_of_experience = models.PositiveSmallIntegerField(
+        default=0,
+    )
 
 
 class Topic(models.Model):
