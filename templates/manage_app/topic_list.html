@@ -2,12 +2,37 @@
 
 {% block content %}
 	<h2>Topics list</h2>
-  <ul>
-    {% for topic in topic_list %}
-    	<li>{{ topic }}</li>
-      {% empty %}
+  {% if topic_list %}
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+      {% for topic in topic_list %}
+        <tr>
+          <td>
+              {{ topic.id }}
+          </td>
+          <td>
+              {{ topic}}
+          </td>
+          <td>
+              <a href="#">
+                Update
+              </a>
+            </td>
+            <td>
+              <a style="color: red"
+                href="#">
+                Delete
+              </a>
+            </td>
+        </tr>
+      {% endfor %}
+    </table>
+    {% else %}
       <p>There are no topics by now</p>
-    {% endfor %}
-    <a href="{% url 'manage_app:topic-create' %}">Add a new topic</a>
-  </ul>
+  {% endif %}
 {% endblock %}
