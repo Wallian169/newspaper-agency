@@ -5,6 +5,9 @@
   <ul>
     {% for topic in topic_list %}
     	<li>{{ topic }}</li>
+      {% empty %}
+      <p>There are no topics by now</p>
     {% endfor %}
+    <a href="{% url 'manage_app:topic-create' %}">Add a new topic</a>
   </ul>
 {% endblock %}
