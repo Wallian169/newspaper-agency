@@ -8,6 +8,10 @@ class Redactor(AbstractUser):
         default=0,
     )
 
+    class Meta:
+        verbose_name = "redactor"
+        verbose_name_plural = "redactors"
+
 
 class Topic(models.Model):
     name = models.CharField(
