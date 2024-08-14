@@ -38,7 +38,7 @@ class TopicUpdateView(generic.UpdateView):
     success_url = reverse_lazy("manage_app:topics")
 
 
-class TopicDeleteView(generic.edit.DeleteView):
+class TopicDeleteView(generic.DeleteView):
     model = Topic
     success_url = reverse_lazy("manage_app:topics")
     template_name = "manage_app/confirm_delete.html"
@@ -48,3 +48,6 @@ class TopicDeleteView(generic.edit.DeleteView):
         context["object_type"] = "topic"
         return context
 
+
+class RedactorListView(generic.ListView):
+    model = Redactor
