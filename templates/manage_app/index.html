@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}<title>Home page</title>{% endblock %}
+
+{% block content %}
+	<h1>Greetings from our Newspaper Agency!</h1>
+  <h3>Here is our management system</h3>
+  <p>We have a great team of {{ num_redactors }} redactors</p>
+  <p>They are working with {{ num_newspapers }} newspapers</p>
+  <p>Newspapers covers {{ num_topics}} of the most interesting topics</p>
+{% endblock %}
