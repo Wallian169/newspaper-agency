@@ -4,7 +4,8 @@ from manage_app.views import (
     index,
     TopicListView,
     TopicCreateView,
-    TopicUpdateView
+    TopicUpdateView,
+    TopicDeleteView,
 )
 
 
@@ -17,6 +18,11 @@ urlpatterns = [
         TopicUpdateView.as_view(),
         name="topic-update"
     ),
+    path(
+        "topics/delete/<int:pk>/",
+        TopicDeleteView.as_view(),
+        name="topic-delete"
+    )
 ]
 
 app_name = "manage_app"

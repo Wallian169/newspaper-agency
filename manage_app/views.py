@@ -36,3 +36,15 @@ class TopicUpdateView(generic.UpdateView):
     model = Topic
     fields = "__all__"
     success_url = reverse_lazy("manage_app:topics")
+
+
+class TopicDeleteView(generic.edit.DeleteView):
+    model = Topic
+    success_url = reverse_lazy("manage_app:topics")
+    template_name = "manage_app/confirm_delete.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object_type"] = "topic"
+        return context
+
