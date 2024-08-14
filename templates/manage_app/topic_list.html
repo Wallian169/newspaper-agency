@@ -16,10 +16,10 @@
               {{ topic.id }}
           </td>
           <td>
-              {{ topic}}
+              {{topic}}
           </td>
           <td>
-              <a href="#">
+              <a href="{% url 'manage_app:topic-update' pk=topic.id %}">
                 Update
               </a>
             </td>
