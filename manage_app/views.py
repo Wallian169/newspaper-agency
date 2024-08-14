@@ -1,5 +1,6 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from django.views import generic
 
 from manage_app.models import Redactor, Newspaper, Topic
 
@@ -18,3 +19,7 @@ def index(request: HttpRequest) -> HttpResponse:
         "manage_app/index.html",
         context=context,
     )
+
+
+class TopicListView(generic.ListView):
+    model = Topic
