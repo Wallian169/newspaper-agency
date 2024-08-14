@@ -8,6 +8,9 @@ class Redactor(AbstractUser):
         default=0,
     )
 
+    def __str__(self) -> str:
+        return f"{self.first_name} {self.last_name}"
+
     class Meta:
         verbose_name = "redactor"
         verbose_name_plural = "redactors"
@@ -17,6 +20,9 @@ class Topic(models.Model):
     name = models.CharField(
         max_length=255
     )
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Newspaper(models.Model):
@@ -30,3 +36,6 @@ class Newspaper(models.Model):
         related_name="publishers"
     )
     topics = models.ManyToManyField(Topic, related_name="topics")
+
+    def __str__(self) -> str:
+        return self.title
