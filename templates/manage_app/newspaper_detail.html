@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>{{ newspaper }}</title>
+{% endblock %}
+{% block content %}
+	<h2>{{ newspaper }} for {{ newspaper.published_date }}</h2>
+  {{ newspaper.content|linebreaksbr }}
+  <p>Related redactors:</p>
+    <ol>
+    {% for publisher in newspaper.publishers.all %}
+      <li><a href="{% url 'manage_app:redactor-detail' pk=publisher.pk %}">{{ publisher.first_name }} {{ publisher.last_name }} ({{ publisher.username }})</a></li>
+    {% endfor %}
+    </ol>
+{% endblock %}
