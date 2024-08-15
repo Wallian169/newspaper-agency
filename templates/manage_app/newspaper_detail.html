@@ -13,4 +13,5 @@
     {% endfor %}
     </ol>
   <a href="{% url 'manage_app:newspaper-update' pk=newspaper.pk %}">Update info</a>
+  <a href="{% url 'manage_app:newspaper-delete' pk=newspaper.pk %}">Delete</a>
 {% endblock %}

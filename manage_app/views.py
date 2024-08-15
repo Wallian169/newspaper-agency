@@ -104,3 +104,15 @@ class NewspaperCreateView(generic.CreateView):
 class NewspaperUpdateView(generic.UpdateView):
     model = Newspaper
     form_class = NewspaperForm
+
+
+class NewspaperDeleteView(generic.DeleteView):
+    model = Newspaper
+    success_url = reverse_lazy("manage_app:newspapers")
+    template_name = "manage_app/confirm_delete.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object_type"] = "newspaper"
+        context["object"] = self.object.title
+        return context
