@@ -9,7 +9,9 @@ from manage_app.views import (
     RedactorListView,
     RedactorDetailView,
     RedactorCreateView,
-    RedactorUpdateView, RedactorDeleteView
+    RedactorUpdateView,
+    RedactorDeleteView,
+    NewspaperListView
 )
 
 
@@ -47,6 +49,11 @@ urlpatterns = [
         "redactors/delete/<int:pk>/",
         RedactorDeleteView.as_view(),
         name="redactor-delete"
+    ),
+    path(
+        "newspapers/",
+        NewspaperListView.as_view(),
+        name="newspapers"
     )
 ]
 

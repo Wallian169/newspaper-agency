@@ -87,3 +87,6 @@ class RedactorDeleteView(generic.DeleteView):
         return context
 
 
+class NewspaperListView(generic.ListView):
+    model = Newspaper
+    queryset = Newspaper.objects.prefetch_related("publishers")
