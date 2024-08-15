@@ -10,7 +10,9 @@
   	{% include "includes/sidebar.html" %}
   {% endblock %}
   {% block content %}
-  	
   {% endblock %}
+  {% if is_paginated %}
+    {% include "includes/pagination.html" %}
+  {% endif %}
 </body>
 </html>
