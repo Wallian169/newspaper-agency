@@ -21,6 +21,15 @@ class RedactorForm(UserCreationForm):
         )
 
 
+class RedactorUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Redactor
+        fields = ["username", "first_name", "last_name", "years_of_experience"]
+
+    def clean_years_of_experience(self):
+        return validate_years_number(self.cleaned_data["years_of_experience"])
+
+
 def validate_years_number(years_of_experience: int) -> int:
     years_limit = 50
     if years_of_experience > years_limit:

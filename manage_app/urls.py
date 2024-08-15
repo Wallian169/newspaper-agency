@@ -5,7 +5,11 @@ from manage_app.views import (
     TopicListView,
     TopicCreateView,
     TopicUpdateView,
-    TopicDeleteView, RedactorListView, RedactorDetailView, RedactorCreateView,
+    TopicDeleteView,
+    RedactorListView,
+    RedactorDetailView,
+    RedactorCreateView,
+    RedactorUpdateView
 )
 
 
@@ -33,6 +37,11 @@ urlpatterns = [
         "redactors/create/",
         RedactorCreateView.as_view(),
         name="redactor-create"
+    ),
+    path(
+        "redactors/update/<int:pk>/",
+        RedactorUpdateView.as_view(),
+        name="redactor-update"
     ),
 ]
 

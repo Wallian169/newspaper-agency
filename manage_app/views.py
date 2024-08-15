@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from manage_app.models import Redactor, Newspaper, Topic
-from manage_app.forms import RedactorForm
+from manage_app.forms import RedactorForm, RedactorUpdateForm
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -67,3 +67,8 @@ class RedactorDetailView(generic.DetailView):
 class RedactorCreateView(generic.CreateView):
     model = Redactor
     form_class = RedactorForm
+
+
+class RedactorUpdateView(generic.UpdateView):
+    model = Redactor
+    form_class = RedactorUpdateForm
