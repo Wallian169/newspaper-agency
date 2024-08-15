@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 
 
 class Redactor(AbstractUser):
@@ -14,6 +15,9 @@ class Redactor(AbstractUser):
     class Meta:
         verbose_name = "redactor"
         verbose_name_plural = "redactors"
+
+    def get_absolute_url(self):
+        return reverse("manage_app:redactor-detail", kwargs={"pk": self.pk})
 
 
 class Topic(models.Model):

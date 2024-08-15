@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>{{ object|yesno:"Update,Add" }} Redactor</title>
+{% endblock %}
+{% block content %}
+  <h1>{{ object|yesno:"Update,Create" }} Redactor</h1>
+  <p>Please, fill fields below</p>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}

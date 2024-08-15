@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from manage_app.models import Redactor, Newspaper, Topic
+from manage_app.forms import RedactorForm
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -61,3 +62,8 @@ class RedactorDetailView(generic.DetailView):
         newspapers = Newspaper.objects.filter(publishers__id=self.kwargs["pk"])
         context["newspapers"] = newspapers
         return context
+
+
+class RedactorCreateView(generic.CreateView):
+    model = Redactor
+    form_class = RedactorForm

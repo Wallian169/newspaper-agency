@@ -10,6 +10,8 @@
   <p>Was assigned to:</p>
   {% for newspaper in newspapers %}
     <p><a href="#">{{ newspaper.title }}</a> for {{ newspaper.published_date }}</p>
+    {% empty %}
+    <p>This redactor is not assigned to any project yet</p>
   {% endfor %}
   
 {% endblock %}

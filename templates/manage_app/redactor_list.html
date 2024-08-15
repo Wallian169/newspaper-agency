@@ -5,6 +5,7 @@
 {% endblock %}
 {% block content %}
   <h1>Our Redactors:</h1>
+  <p><a href="{% url 'manage_app:redactor-create' %}">Add a new redactor</a></p>
   {% if redactor_list %}
     <ul>
       {% for redactor in redactor_list%}
