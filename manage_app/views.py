@@ -31,12 +31,14 @@ class TopicCreateView(generic.CreateView):
     model = Topic
     fields = "__all__"
     success_url = reverse_lazy("manage_app:topics")
+    template_name = "manage_app/create_update_form.html"
 
 
 class TopicUpdateView(generic.UpdateView):
     model = Topic
     fields = "__all__"
     success_url = reverse_lazy("manage_app:topics")
+    template_name = "manage_app/create_update_form.html"
 
 
 class TopicDeleteView(generic.DeleteView):
@@ -68,11 +70,13 @@ class RedactorDetailView(generic.DetailView):
 class RedactorCreateView(generic.CreateView):
     model = Redactor
     form_class = RedactorForm
+    template_name = "manage_app/create_update_form.html"
 
 
 class RedactorUpdateView(generic.UpdateView):
     model = Redactor
     form_class = RedactorUpdateForm
+    template_name = "manage_app/create_update_form.html"
 
 
 class RedactorDeleteView(generic.DeleteView):
@@ -99,11 +103,13 @@ class NewspaperDetailView(generic.DetailView):
 class NewspaperCreateView(generic.CreateView):
     model = Newspaper
     form_class = NewspaperForm
+    template_name = "manage_app/create_update_form.html"
 
 
 class NewspaperUpdateView(generic.UpdateView):
     model = Newspaper
     form_class = NewspaperForm
+    template_name = "manage_app/create_update_form.html"
 
 
 class NewspaperDeleteView(generic.DeleteView):
