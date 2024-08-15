@@ -51,3 +51,13 @@ class TopicDeleteView(generic.DeleteView):
 
 class RedactorListView(generic.ListView):
     model = Redactor
+
+
+class RedactorDetailView(generic.DetailView):
+    model = Redactor
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        newspapers = Newspaper.objects.filter(publishers__id=self.kwargs["pk"])
+        context["newspapers"] = newspapers
+        return context

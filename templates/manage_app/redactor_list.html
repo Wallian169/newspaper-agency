@@ -9,7 +9,7 @@
     <ul>
       {% for redactor in redactor_list%}
         <li>
-          <a href="#">{{ redactor.username }}</a>
+          <a href="{% url 'manage_app:redactor-detail' pk=redactor.id %}">{{ redactor.username }}</a>
           ({{ redactor.first_name }} {{ redactor.last_name }})
           {% if redactor.id == user.id %}<strong>(Me)</strong>{% endif %}
         </li>

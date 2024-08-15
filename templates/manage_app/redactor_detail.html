@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Redactor {{ redactor.username }}</title>
+{% endblock %}
+
+{% block content %}
+  <h2>Redactor {{ redactor.first_name }} {{ redactor.last_name }}</h2>
+  <p>Years of experience {{ redactor.years_of_experience }}</p>
+  <p>Was assigned to:</p>
+  {% for newspaper in newspapers %}
+    <p><a href="#">{{ newspaper.title }}</a> for {{ newspaper.published_date }}</p>
+  {% endfor %}
+  
+{% endblock %}
