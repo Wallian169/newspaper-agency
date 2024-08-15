@@ -5,5 +5,9 @@
 {% endblock %}
 {% block content %}
   <h1>{{ object|yesno:"Update,Create" }} Newspaper</h1>
-  {{ form.as_p }}
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+  </form>
 {% endblock %}

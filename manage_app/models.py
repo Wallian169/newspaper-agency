@@ -41,5 +41,8 @@ class Newspaper(models.Model):
     )
     topics = models.ManyToManyField(Topic, related_name="topics")
 
+    def get_absolute_url(self):
+        return reverse("manage_app:newspaper-detail", kwargs={"pk": self.pk})
+
     def __str__(self) -> str:
         return self.title

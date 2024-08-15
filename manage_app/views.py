@@ -99,3 +99,8 @@ class NewspaperDetailView(generic.DetailView):
 class NewspaperCreateView(generic.CreateView):
     model = Newspaper
     form_class = NewspaperForm
+
+
+class NewspaperUpdateView(generic.UpdateView):
+    model = Newspaper
+    form_class = NewspaperForm

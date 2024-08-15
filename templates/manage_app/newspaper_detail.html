@@ -12,4 +12,5 @@
       <li><a href="{% url 'manage_app:redactor-detail' pk=publisher.pk %}">{{ publisher.first_name }} {{ publisher.last_name }} ({{ publisher.username }})</a></li>
     {% endfor %}
     </ol>
+  <a href="{% url 'manage_app:newspaper-update' pk=newspaper.pk %}">Update info</a>
 {% endblock %}
