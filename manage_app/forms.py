@@ -1,8 +1,9 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
-from manage_app.models import Redactor
+from manage_app.models import Redactor, Newspaper, Topic
 
 
 class RedactorForm(UserCreationForm):
@@ -37,3 +38,23 @@ def validate_years_number(years_of_experience: int) -> int:
         )
 
     return years_of_experience
+
+
+class NewspaperForm(forms.ModelForm):
+    publishers = forms.ModelMultipleChoiceField(
+        queryset=get_user_model().objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
+    published_date = forms.DateField(
+        widget=forms.DateInput(
+            attrs={"type": "date"}
+        )
+    )
+    topics = forms.ModelMultipleChoiceField(
+        queryset=Topic.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
+
+    class Meta:
+        model = Newspaper
+        fields = "__all__"

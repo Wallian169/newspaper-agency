@@ -14,5 +14,6 @@
       {% else %}
       <p>There are no newspapers yet</p>
     </ol>
-  {% endif %} 
+  {% endif %}
+  <a href="{% url 'manage_app:newspaper-create' %}">Add a newspaper</a>
 {% endblock %}

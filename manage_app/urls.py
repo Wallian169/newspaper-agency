@@ -11,7 +11,7 @@ from manage_app.views import (
     RedactorCreateView,
     RedactorUpdateView,
     RedactorDeleteView,
-    NewspaperListView, NewspaperDetailView
+    NewspaperListView, NewspaperDetailView, NewspaperCreateView
 )
 
 
@@ -59,7 +59,12 @@ urlpatterns = [
         "newspapers/<int:pk>/",
         NewspaperDetailView.as_view(),
         name="newspaper-detail"
-    )
+    ),
+    path(
+        "newspapers/create/",
+        NewspaperCreateView.as_view(),
+        name="newspaper-create"
+    ),
 ]
 
 app_name = "manage_app"

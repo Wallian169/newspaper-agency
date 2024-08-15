@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from manage_app.models import Redactor, Newspaper, Topic
-from manage_app.forms import RedactorForm, RedactorUpdateForm
+from manage_app.forms import RedactorForm, RedactorUpdateForm, NewspaperForm
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -94,3 +94,8 @@ class NewspaperListView(generic.ListView):
 class NewspaperDetailView(generic.DetailView):
     model = Newspaper
     queryset = Newspaper.objects.prefetch_related("publishers")
+
+
+class NewspaperCreateView(generic.CreateView):
+    model = Newspaper
+    form_class = NewspaperForm
