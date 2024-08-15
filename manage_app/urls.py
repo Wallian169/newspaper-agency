@@ -9,7 +9,7 @@ from manage_app.views import (
     RedactorListView,
     RedactorDetailView,
     RedactorCreateView,
-    RedactorUpdateView
+    RedactorUpdateView, RedactorDeleteView
 )
 
 
@@ -43,6 +43,11 @@ urlpatterns = [
         RedactorUpdateView.as_view(),
         name="redactor-update"
     ),
+    path(
+        "redactors/delete/<int:pk>/",
+        RedactorDeleteView.as_view(),
+        name="redactor-delete"
+    )
 ]
 
 app_name = "manage_app"

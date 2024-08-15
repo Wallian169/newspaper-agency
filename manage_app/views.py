@@ -47,6 +47,7 @@ class TopicDeleteView(generic.DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["object_type"] = "topic"
+        context["object"] = self.object
         return context
 
 
@@ -72,3 +73,17 @@ class RedactorCreateView(generic.CreateView):
 class RedactorUpdateView(generic.UpdateView):
     model = Redactor
     form_class = RedactorUpdateForm
+
+
+class RedactorDeleteView(generic.DeleteView):
+    model = Redactor
+    success_url = reverse_lazy("manage_app:redactors")
+    template_name = "manage_app/confirm_delete.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object_type"] = "redactor"
+        context["object"] = self.object.username
+        return context
+
+

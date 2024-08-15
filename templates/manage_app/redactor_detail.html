@@ -16,5 +16,6 @@
   {% endfor %}
   
   <p><a href="{% url 'manage_app:redactor-update' pk=redactor.pk %}"> Update info</a></p>
+  <p><a href="{% url 'manage_app:redactor-delete' pk=redactor.pk %}">Delete redactor</a></p>
   
 {% endblock %}

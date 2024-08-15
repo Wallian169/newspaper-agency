@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<h2>Are you sure want to delete {{ object_type }} {{ object }}</h2>
+	<h2>Are you sure want to delete {{ object_type }} {{ object }}?</h2>
   <p>All related data may be lost</p>
     <form action="" method="post" >
     {% csrf_token %}
