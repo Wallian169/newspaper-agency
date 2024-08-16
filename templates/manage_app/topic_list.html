@@ -6,6 +6,10 @@
 
 {% block content %}
 	<h2>Topics list</h2>
+  <form action="" method="get">
+    {{ search_form.as_p }}
+    <input type="submit" value="Search">
+  </form>
   {% if topic_list %}
     <table>
       <tr>

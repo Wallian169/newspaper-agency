@@ -4,7 +4,12 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from manage_app.models import Redactor, Newspaper, Topic
-from manage_app.forms import RedactorForm, RedactorUpdateForm, NewspaperForm
+from manage_app.forms import (
+    RedactorForm,
+    RedactorUpdateForm,
+    NewspaperForm,
+    TopicSearchForm,
+)
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -25,6 +30,21 @@ def index(request: HttpRequest) -> HttpResponse:
 
 class TopicListView(generic.ListView):
     model = Topic
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+        context["search_form"] = TopicSearchForm(
+            initial={"name": name}
+        )
+        return context
+
+    def get_queryset(self):
+        form = TopicSearchForm(self.request.GET)
+        queryset = Topic.objects.all()
+        if form.is_valid():
+            return queryset.filter(name__icontains=form.cleaned_data["name"])
+        return queryset
 
 
 class TopicCreateView(generic.CreateView):
