@@ -69,3 +69,14 @@ class TopicSearchForm(forms.Form):
             attrs={"placeholder": "Search by title"}
         )
     )
+
+
+class RedactorSearchForm(forms.Form):
+    query = forms.CharField(
+        max_length=255,
+        label="",
+        required=False,
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search by username, first name, or last name"}
+        )
+    )

@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -9,7 +10,7 @@ from manage_app.forms import (
     RedactorForm,
     RedactorUpdateForm,
     NewspaperForm,
-    TopicSearchForm,
+    TopicSearchForm, RedactorSearchForm,
 )
 from manage_app.models import Redactor, Newspaper, Topic
 
@@ -79,6 +80,29 @@ class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class RedactorListView(LoginRequiredMixin, generic.ListView):
     model = Redactor
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        search_input = self.request.GET.get("query`", "")
+        context["search_form"] = RedactorSearchForm(
+            initial={"query": search_input}
+        )
+        return context
+
+    def get_queryset(self):
+        form = RedactorSearchForm(self.request.GET or None)
+        queryset = super().get_queryset()
+
+        if form.is_valid():
+            query = form.cleaned_data.get('query')
+            if query:
+                queryset = queryset.filter(
+                    Q(username__icontains=query) |
+                    Q(first_name__icontains=query) |
+                    Q(last_name__icontains=query)
+                )
+
+        return queryset
 
 
 class RedactorDetailView(LoginRequiredMixin, generic.DetailView):

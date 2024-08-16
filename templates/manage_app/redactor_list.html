@@ -6,6 +6,10 @@
 {% block content %}
   <h1>Our Redactors:</h1>
   <p><a href="{% url 'manage_app:redactor-create' %}">Add a new redactor</a></p>
+  <form action="" method="get">
+    {{ search_form.as_p }}
+    <input type="submit" value="search">
+  </form>
   {% if redactor_list %}
     <ul>
       {% for redactor in redactor_list%}
