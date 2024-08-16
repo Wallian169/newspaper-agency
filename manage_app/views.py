@@ -1,17 +1,20 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from manage_app.models import Redactor, Newspaper, Topic
 from manage_app.forms import (
     RedactorForm,
     RedactorUpdateForm,
     NewspaperForm,
     TopicSearchForm,
 )
+from manage_app.models import Redactor, Newspaper, Topic
 
 
+@login_required
 def index(request: HttpRequest) -> HttpResponse:
     num_redactors = Redactor.objects.count()
     num_newspapers = Newspaper.objects.count()
@@ -28,7 +31,7 @@ def index(request: HttpRequest) -> HttpResponse:
     )
 
 
-class TopicListView(generic.ListView):
+class TopicListView(LoginRequiredMixin, generic.ListView):
     model = Topic
     paginate_by = 5
 
@@ -48,21 +51,21 @@ class TopicListView(generic.ListView):
         return queryset
 
 
-class TopicCreateView(generic.CreateView):
+class TopicCreateView(LoginRequiredMixin, generic.CreateView):
     model = Topic
     fields = "__all__"
     success_url = reverse_lazy("manage_app:topics")
     template_name = "manage_app/create_update_form.html"
 
 
-class TopicUpdateView(generic.UpdateView):
+class TopicUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Topic
     fields = "__all__"
     success_url = reverse_lazy("manage_app:topics")
     template_name = "manage_app/create_update_form.html"
 
 
-class TopicDeleteView(generic.DeleteView):
+class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Topic
     success_url = reverse_lazy("manage_app:topics")
     template_name = "manage_app/confirm_delete.html"
@@ -74,11 +77,11 @@ class TopicDeleteView(generic.DeleteView):
         return context
 
 
-class RedactorListView(generic.ListView):
+class RedactorListView(LoginRequiredMixin, generic.ListView):
     model = Redactor
 
 
-class RedactorDetailView(generic.DetailView):
+class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
     model = Redactor
 
     def get_context_data(self, **kwargs):
@@ -88,19 +91,19 @@ class RedactorDetailView(generic.DetailView):
         return context
 
 
-class RedactorCreateView(generic.CreateView):
+class RedactorCreateView(LoginRequiredMixin, generic.CreateView):
     model = Redactor
     form_class = RedactorForm
     template_name = "manage_app/create_update_form.html"
 
 
-class RedactorUpdateView(generic.UpdateView):
+class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Redactor
     form_class = RedactorUpdateForm
     template_name = "manage_app/create_update_form.html"
 
 
-class RedactorDeleteView(generic.DeleteView):
+class RedactorDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Redactor
     success_url = reverse_lazy("manage_app:redactors")
     template_name = "manage_app/confirm_delete.html"
@@ -112,28 +115,28 @@ class RedactorDeleteView(generic.DeleteView):
         return context
 
 
-class NewspaperListView(generic.ListView):
+class NewspaperListView(LoginRequiredMixin, generic.ListView):
     model = Newspaper
 
 
-class NewspaperDetailView(generic.DetailView):
+class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):
     model = Newspaper
     queryset = Newspaper.objects.prefetch_related("publishers")
 
 
-class NewspaperCreateView(generic.CreateView):
+class NewspaperCreateView(LoginRequiredMixin, generic.CreateView):
     model = Newspaper
     form_class = NewspaperForm
     template_name = "manage_app/create_update_form.html"
 
 
-class NewspaperUpdateView(generic.UpdateView):
+class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Newspaper
     form_class = NewspaperForm
     template_name = "manage_app/create_update_form.html"
 
 
-class NewspaperDeleteView(generic.DeleteView):
+class NewspaperDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Newspaper
     success_url = reverse_lazy("manage_app:newspapers")
     template_name = "manage_app/confirm_delete.html"
