@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 
 from manage_app.views import (
@@ -14,7 +16,6 @@ from manage_app.views import (
     NewspaperListView, NewspaperDetailView, NewspaperCreateView,
     NewspaperUpdateView, NewspaperDeleteView
 )
-
 
 urlpatterns = [
     path("", index, name="index"),
@@ -76,6 +77,6 @@ urlpatterns = [
         NewspaperDeleteView.as_view(),
         name="newspaper-delete"
     ),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 app_name = "manage_app"
