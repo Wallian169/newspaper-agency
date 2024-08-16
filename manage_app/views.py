@@ -10,7 +10,7 @@ from manage_app.forms import (
     RedactorForm,
     RedactorUpdateForm,
     NewspaperForm,
-    TopicSearchForm, RedactorSearchForm,
+    TopicSearchForm, RedactorSearchForm, NewspaperSearchForm,
 )
 from manage_app.models import Redactor, Newspaper, Topic
 
@@ -90,7 +90,7 @@ class RedactorListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        form = RedactorSearchForm(self.request.GET or None)
+        form = RedactorSearchForm(self.request.GET)
         queryset = super().get_queryset()
 
         if form.is_valid():
@@ -141,6 +141,22 @@ class RedactorDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class NewspaperListView(LoginRequiredMixin, generic.ListView):
     model = Newspaper
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        title = self.request.GET.get("title", "")
+        context["search_form"] = NewspaperSearchForm(
+            initial={"title": title}
+        )
+        return context
+
+    def get_queryset(self):
+        form = NewspaperSearchForm(self.request.GET)
+        queryset = Newspaper.objects.all()
+        if form.is_valid():
+            return queryset.filter(
+                title__icontains=form.cleaned_data["title"])
+        return queryset
 
 
 class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):

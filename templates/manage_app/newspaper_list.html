@@ -6,6 +6,10 @@
 
 {% block content %}
 	<h1>Newspapers</h1>
+  <form action="" method="get">
+    {{ search_form.as_p }}
+    <input type="submit" value="Search">
+  </form>
   {% if newspaper_list %}
   	<ol>
       {% for newspaper in newspaper_list %}
