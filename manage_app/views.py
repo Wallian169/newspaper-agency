@@ -10,7 +10,10 @@ from manage_app.forms import (
     RedactorForm,
     RedactorUpdateForm,
     NewspaperForm,
-    TopicSearchForm, RedactorSearchForm, NewspaperSearchForm,
+    TopicSearchForm,
+    RedactorSearchForm,
+    NewspaperSearchForm,
+    NewspaperDateSearch
 )
 from manage_app.models import Redactor, Newspaper, Topic
 
@@ -145,17 +148,37 @@ class NewspaperListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         title = self.request.GET.get("title", "")
+        start_date = self.request.GET.get("start_date", "")
+        end_date = self.request.GET.get("end_date", "")
         context["search_form"] = NewspaperSearchForm(
-            initial={"title": title}
+            initial={
+                "title": title,
+                "start_date": start_date,
+                "end_date": end_date,
+            }
         )
         return context
 
     def get_queryset(self):
         form = NewspaperSearchForm(self.request.GET)
-        queryset = Newspaper.objects.all()
+        queryset = super().get_queryset()
+
         if form.is_valid():
-            return queryset.filter(
-                title__icontains=form.cleaned_data["title"])
+            title = form.cleaned_data.get('title')
+            start_date = form.cleaned_data.get('start_date')
+            end_date = form.cleaned_data.get('end_date')
+
+            if title:
+                queryset = queryset.filter(title__icontains=title)
+
+            if start_date and end_date:
+                queryset = queryset.filter(
+                    published_date__range=[start_date, end_date])
+            elif start_date:
+                queryset = queryset.filter(published_date__gte=start_date)
+            elif end_date:
+                queryset = queryset.filter(published_date__lte=end_date)
+
         return queryset
 
 

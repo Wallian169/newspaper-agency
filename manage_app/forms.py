@@ -91,3 +91,26 @@ class NewspaperSearchForm(forms.Form):
             attrs={"placeholder": "Search by title"}
         )
     )
+    start_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(
+            attrs={'type': 'date', 'placeholder': 'Start Date'})
+    )
+    end_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(
+            attrs={'type': 'date', 'placeholder': 'End Date'})
+    )
+
+
+class NewspaperDateSearch:
+    start_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(
+            attrs={'type': 'date', 'placeholder': 'Start Date'})
+    )
+    end_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(
+            attrs={'type': 'date', 'placeholder': 'End Date'})
+    )
