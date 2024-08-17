@@ -13,7 +13,6 @@ from manage_app.forms import (
     TopicSearchForm,
     RedactorSearchForm,
     NewspaperSearchForm,
-    NewspaperDateSearch
 )
 from manage_app.models import Redactor, Newspaper, Topic
 
@@ -30,7 +29,7 @@ def index(request: HttpRequest) -> HttpResponse:
     }
     return render(
         request,
-        "manage_app/index.html",
+        "manage_app/indexs.html",
         context=context,
     )
 
