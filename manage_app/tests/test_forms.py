@@ -1,7 +1,6 @@
-from django.test import TestCase
-from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
-from manage_app.models import Redactor
+from django.test import TestCase
+
 from manage_app.forms import RedactorForm
 
 User = get_user_model()
@@ -41,5 +40,5 @@ class RedactorFormTestCase(TestCase):
         self.assertIn('years_of_experience', form.errors)
         self.assertEqual(
             form.errors['years_of_experience'],
-            [f'Years field must be less than or equal to 50']
+            ['Years field must be less than or equal to 50']
         )
