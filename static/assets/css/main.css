@@ -251,7 +251,7 @@ h6 {
     font-size: 16px;
     font-family: var(--nav-font);
     font-weight: 400;
-    display: flex;
+    display: inline-block;
     align-items: center;
     justify-content: space-between;
     white-space: nowrap;
@@ -260,7 +260,7 @@ h6 {
 
   .navmenu a i,
   .navmenu a:focus i {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 0;
     margin-left: 5px;
     transition: 0.3s;
@@ -276,42 +276,7 @@ h6 {
     color: var(--nav-hover-color);
   }
 
-  .navmenu .dropdown ul {
-    margin: 0;
-    padding: 10px 0;
-    background: var(--nav-dropdown-background-color);
-    display: block;
-    position: absolute;
-    visibility: hidden;
-    left: 14px;
-    top: 130%;
-    opacity: 0;
-    transition: 0.3s;
-    border-radius: 0;
-    z-index: 99;
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
-  }
 
-  .navmenu .dropdown ul li {
-    min-width: 200px;
-  }
-
-  .navmenu .dropdown ul a {
-    padding: 10px 20px;
-    font-size: 15px;
-    text-transform: none;
-    color: var(--nav-dropdown-color);
-  }
-
-  .navmenu .dropdown ul a i {
-    font-size: 12px;
-  }
-
-  .navmenu .dropdown ul a:hover,
-  .navmenu .dropdown ul .active:hover,
-  .navmenu .dropdown ul li:hover>a {
-    background-color: var(--nav-dropdown-hover-color);
-  }
 
   .navmenu .dropdown:hover>ul {
     opacity: 1;
@@ -341,7 +306,7 @@ h6 {
     line-height: 0;
     margin-right: 10px;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: color 0.5s;
   }
 
   .navmenu {
@@ -1720,4 +1685,9 @@ section,
 .btn-warning:hover {
     background-color: #ffffff; /* New background color */
     color: #000000; /* New text color */
+}
+
+.form-control {
+    max-width: 300px; /* Adjust this value as needed */
+    flex: 1; /* Makes sure the field takes available space */
 }

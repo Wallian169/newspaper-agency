@@ -29,7 +29,7 @@ def index(request: HttpRequest) -> HttpResponse:
     }
     return render(
         request,
-        "manage_app/indexs.html",
+        "manage_app/index.html",
         context=context,
     )
 

@@ -77,7 +77,7 @@ class RedactorSearchForm(forms.Form):
         label="",
         required=False,
         widget=forms.TextInput(
-            attrs={"placeholder": "Search by username, first name, or last name"}
+            attrs={"placeholder": "Type a search query"}
         )
     )
 
