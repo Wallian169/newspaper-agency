@@ -11,8 +11,8 @@
 
         <div class="d-flex justify-content-between align-items-center mb-4">
             <form action="" method="get" class="d-flex align-items-lg-center">
-                {{ search_form | as_crispy_field }}
-                <button type="submit" class="btn btn-success">Search</button>
+                {{ search_form.as_p }}
+                <button type="submit" class="btn btn-success mb-lg-3">Search</button>
             </form>
 
             <a href="{% url 'manage_app:redactor-create' %}" class="btn btn-primary">Add a new redactor</a>
