@@ -1720,6 +1720,4 @@ section,
 .btn-warning:hover {
     background-color: #ffffff; /* New background color */
     color: #000000; /* New text color */
-    border: 3px solid var(--accent-color);
-    border-color: #fadd21; /* Optional: Change border color */
 }
