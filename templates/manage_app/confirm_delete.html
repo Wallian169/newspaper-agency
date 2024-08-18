@@ -1,11 +1,23 @@
 {% extends "base.html" %}
 
+{% block title %}
+	<title>Delete {{ object }}</title>
+{% endblock %}
+
 {% block content %}
-	<h2>Are you sure want to delete {{ object_type }} {{ object }}?</h2>
-  <p>All related data may be lost</p>
-    <form action="" method="post" >
-    {% csrf_token %}
-    <input type="submit" value="Yes, I sure">
-    <a href="javascript:history.back()">Cancel</a>
-  </form>
+    <div class="container mt-5">
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Confirm Deletion</h4>
+            <p class="mb-0">Are you sure you want to delete {{ object_type }} {{ object }}?</p>
+            <hr>
+            <p class="mb-0">All related data may be lost.</p>
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="d-flex justify-content-center gap-4">
+                <button type="submit" class="btn btn-danger">Yes, I’m sure</button>
+                <a href="javascript:history.back()" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
 {% endblock %}
