@@ -1,21 +1,44 @@
 {% extends "base.html" %}
 
 {% block title %}
-	<title>Redactor {{ redactor.username }}</title>
+    <title>Redactor {{ redactor.username }}</title>
 {% endblock %}
 
 {% block content %}
-  <h2>Redactor {{ redactor.first_name }} {{ redactor.last_name }}</h2>
-  <p>Username: {{ redactor.username }}</p>
-  <p>Years of experience {{ redactor.years_of_experience }}</p>
-  <p>Was assigned to:</p>
-  {% for newspaper in newspapers %}
-    <p><a href="#">{{ newspaper.title }}</a> for {{ newspaper.published_date }}</p>
-    {% empty %}
-    <p>This redactor is not assigned to any project yet</p>
-  {% endfor %}
+<div class="container mt-4">
+  <h2 class="mb-3">Redactor {{ redactor.first_name }} {{ redactor.last_name }}</h2>
   
-  <p><a href="{% url 'manage_app:redactor-update' pk=redactor.pk %}"> Update info</a></p>
-  <p><a href="{% url 'manage_app:redactor-delete' pk=redactor.pk %}">Delete redactor</a></p>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">Profile</h5>
+      <p class="card-text"><strong>Username:</strong> {{ redactor.username }}</p>
+      <p class="card-text"><strong>First name:</strong> {{ redactor.first_name }}</p>
+      <p class="card-text"><strong>Last name:</strong> {{ redactor.last_name }}</p>
+      <p class="card-text"><strong>Email:</strong> {{ redactor.email }}</p>
+      <p class="card-text"><strong>Years of Experience:</strong> {{ redactor.years_of_experience }}</p>
+      <p class="card-text"><strong>Last login:</strong> {{ redactor.last_login }}</p>
+      <p class="card-text"><strong>Registered:</strong> {{ redactor.date_joined}}</p>
+    </div>
+  </div>
+
+  <h4 class="mb-3">Assigned Newspapers</h4>
+  {% if newspapers %}
+    <ul class="list-group">
+      {% for newspaper in newspapers %}
+        <li class="list-group-item">
+          <a href="{% url 'manage_app:newspaper-detail' pk=newspaper.pk %}" class="link-primary">{{ newspaper.title }}</a> for {{ newspaper.published_date }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="alert alert-info" role="alert">
+      This redactor is not assigned to any project yet.
+    </div>
+  {% endif %}
   
+  <div class="mt-4">
+    <a href="{% url 'manage_app:redactor-update' pk=redactor.pk %}" class="btn btn-primary">Update Info</a>
+    <a href="{% url 'manage_app:redactor-delete' pk=redactor.pk %}" class="btn btn-danger">Delete Redactor</a>
+  </div>
+</div>
 {% endblock %}
