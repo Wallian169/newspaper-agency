@@ -1,0 +1,27 @@
+
+  <header id="header" class="header d-flex align-items-center bg-black">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="#" class="logo d-flex align-items-center me-auto me-lg-0">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1 class="sitename">NA</h1>
+        <span>.</span>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="{% url 'manage_app:index' %}" class="active">Home<br></a></li>
+          <li><a href="{% url 'manage_app:redactors' %}">Redactors</a></li>
+          <li><a href="{% url 'manage_app:newspapers' %}">Newspapers</a></li>
+          <li><a href="{% url 'manage_app:topics' %}">Topics</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+{#        <a href="{% url 'manage_app:redactor-detail' pk=user.id %}" class="">Hi, {{ user }}</a>#}
+        <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Log out" class="btn btn-warning">
+      </form>
+      </div>
+  </header>
