@@ -21,11 +21,14 @@
             </div>
         </form>
         {% if newspaper_list %}
-            <ol class="list-group list-group-numbered mb-3">
+            <ol class="list-group mb-3">
                 {% for newspaper in newspaper_list %}
                     <li class="list-group-item">
+                      {% with forloop.counter0 as index %}
+                        {{ index|add:page_obj.start_index }}.
                         <a href="{% url 'manage_app:newspaper-detail' pk=newspaper.pk %}">{{ newspaper }}</a>
                         <p class="text-muted"> for {{ newspaper.published_date }}</p>
+                      {% endwith %}
                     </li>
                 {% endfor %}
             </ol>
