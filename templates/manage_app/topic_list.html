@@ -5,43 +5,48 @@
 {% endblock %}
 
 {% block content %}
-	<h2>Topics list</h2>
-  <form action="" method="get">
-    {{ search_form.as_p }}
-    <input type="submit" value="Search">
-  </form>
-  {% if topic_list %}
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Update</th>
-        <th>Delete</th>
-      </tr>
-      {% for topic in topic_list %}
-        <tr>
-          <td>
-              {{ topic.id }}
-          </td>
-          <td>
-              {{topic}}
-          </td>
-          <td>
-              <a href="{% url 'manage_app:topic-update' pk=topic.id %}">
-                Update
-              </a>
-            </td>
-            <td>
-              <a style="color: red"
-                href="{% url 'manage_app:topic-delete' pk=topic.id %}">
-                Delete
-              </a>
-            </td>
-        </tr>
-      {% endfor %}
-    </table>
-    {% else %}
-      <p>There are no topics by now</p>
-  {% endif %}
-  <a href="{% url 'manage_app:topic-create' %}">Create topic</a>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Topics List</h2>
+            <a href="{% url 'manage_app:topic-create' %}" class="btn btn-success">Create Topic</a>
+        </div>
+        <form action="" method="get" class="mb-4">
+            <div class="form-row">
+                <div class="col">
+                    {{ search_form.as_p }}
+                </div>
+                <div class="col-auto">
+                    <input type="submit" value="Search" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+        {% if topic_list %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for topic in topic_list %}
+                        <tr>
+                            <td>{{ topic.id }}</td>
+                            <td>{{ topic }}</td>
+                            <td>
+                                <a href="{% url 'manage_app:topic-update' pk=topic.id %}" class="btn btn-warning btn-sm">Update</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'manage_app:topic-delete' pk=topic.id %}" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-muted">There are no topics at the moment.</p>
+        {% endif %}
+    </div>
 {% endblock %}

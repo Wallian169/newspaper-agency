@@ -68,12 +68,14 @@
   </header>
 
   <main class="main">
+    <div class="container mt-5">
     {% block content %}
-    	
+
     {% endblock %}
-  {% if is_paginated %}
-    {% include "includes/pagination.html" %}
-  {% endif %}
+    {% if is_paginated %}
+      {% include "includes/pagination.html" %}
+    {% endif %}
+    </div>
   </main>
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
