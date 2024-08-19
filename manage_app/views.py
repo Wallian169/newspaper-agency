@@ -246,3 +246,28 @@ class NewspaperDeleteView(LoginRequiredMixin, generic.DeleteView):
         context["object_type"] = "newspaper"
         context["object"] = self.object.title
         return context
+
+
+class TopicUpdateDeleteView(generic.UpdateView):
+    model = Topic
+    form_class = TopicForm
+    template_name = "manage_app/create_update_form.html"
+    success_url = reverse_lazy("manage_app:topics")
+
+    def post(self, request, *args, **kwargs):
+        if "delete" in request.POST:
+            return render(
+                request,
+                'manage_app/confirm_delete.html',
+                {
+                    "object": self.get_object(),
+                    "object_type": "Topic"
+                }
+            )
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        if self.request.POST.get("confirm_delete"):
+            self.object.delete()
+            return redirect(self.success_url)
+        return super().form_valid(form)

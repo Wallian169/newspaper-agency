@@ -17,21 +17,16 @@ from manage_app.views import (
     NewspaperUpdateView,
     NewspaperDeleteView,
     TopicListCreateView,
+    TopicUpdateDeleteView,
 )
 
 urlpatterns = [
     path("", index, name="index"),
     path("topics/", TopicListCreateView.as_view(), name="topics"),
-    # path("topics/create/", TopicCreateView.as_view(), name="topic-create"),
     path(
-        "topics/update/<int:pk>/",
-        TopicUpdateView.as_view(),
-        name="topic-update"
-    ),
-    path(
-        "topics/delete/<int:pk>/",
-        TopicDeleteView.as_view(),
-        name="topic-delete"
+        "topics/<int:pk>/",
+        TopicUpdateDeleteView.as_view(),
+        name="topic-update-delete"
     ),
     path("redactors/", RedactorListView.as_view(), name="redactors"),
     path(
