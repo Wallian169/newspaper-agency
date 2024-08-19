@@ -114,3 +114,10 @@ class NewspaperDateSearch:
         widget=forms.DateInput(
             attrs={'type': 'date', 'placeholder': 'End Date'})
     )
+
+
+class TopicForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = ("name",)
+        labels = ""

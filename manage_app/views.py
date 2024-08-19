@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views import generic
+from django.views import generic, View
 
 from manage_app.forms import (
     RedactorForm,
@@ -13,6 +14,7 @@ from manage_app.forms import (
     TopicSearchForm,
     RedactorSearchForm,
     NewspaperSearchForm,
+    TopicForm,
 )
 from manage_app.models import Redactor, Newspaper, Topic
 
@@ -34,18 +36,7 @@ def index(request: HttpRequest) -> HttpResponse:
     )
 
 
-class TopicListView(LoginRequiredMixin, generic.ListView):
-    model = Topic
-    paginate_by = 5
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        name = self.request.GET.get("name", "")
-        context["search_form"] = TopicSearchForm(
-            initial={"name": name}
-        )
-        return context
-
+class TopicListCreateView(LoginRequiredMixin, View):
     def get_queryset(self):
         form = TopicSearchForm(self.request.GET)
         queryset = Topic.objects.all()
@@ -53,12 +44,58 @@ class TopicListView(LoginRequiredMixin, generic.ListView):
             return queryset.filter(name__icontains=form.cleaned_data["name"])
         return queryset
 
+    def get(self, request, *args, **kwargs):
+        name = request.GET.get("name", "")
+        search_form = TopicSearchForm(initial={"name": name})
+        queryset = self.get_queryset()
 
-class TopicCreateView(LoginRequiredMixin, generic.CreateView):
-    model = Topic
-    fields = "__all__"
-    success_url = reverse_lazy("manage_app:topics")
-    template_name = "manage_app/create_update_form.html"
+        paginator = Paginator(queryset, 4)
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
+        create_form = TopicForm()
+
+        context = {
+            "search_form": search_form,
+            "topic_list": queryset,
+            "create_form": create_form,
+            "page_obj": page_obj,
+            "is_paginated": True,
+            "paginator": paginator,
+        }
+        return render(
+            request,
+            "manage_app/topic_list.html",
+            context
+        )
+
+    def post(self, request, *args, **kwargs):
+        create_form = TopicForm(
+            request.POST
+        )
+
+        if create_form.is_valid():
+            create_form.save()
+            return redirect(reverse_lazy("manage_app:topics"))
+
+        name = request.GET.get("name", "")
+        search_form = TopicSearchForm(initial={"name": name})
+        queryset = Topic.objects.all()
+
+        if search_form.is_valid():
+            queryset = queryset.filter(
+                name__icontains=search_form.cleaned_data["name"])
+
+        context = {
+            "search_form": search_form,
+            "topics": queryset,
+            "create_form": create_form,
+        }
+        return render(
+            request,
+            "manage_app/topic_list.html",
+            context
+        )
 
 
 class TopicUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -85,7 +122,7 @@ class RedactorListView(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        search_input = self.request.GET.get("query`", "")
+        search_input = self.request.GET.get("query", "")
         context["search_form"] = RedactorSearchForm(
             initial={"query": search_input}
         )

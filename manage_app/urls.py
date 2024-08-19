@@ -4,8 +4,6 @@ from django.urls import path
 
 from manage_app.views import (
     index,
-    TopicListView,
-    TopicCreateView,
     TopicUpdateView,
     TopicDeleteView,
     RedactorListView,
@@ -18,12 +16,13 @@ from manage_app.views import (
     NewspaperCreateView,
     NewspaperUpdateView,
     NewspaperDeleteView,
+    TopicListCreateView,
 )
 
 urlpatterns = [
     path("", index, name="index"),
-    path("topics/", TopicListView.as_view(), name="topics"),
-    path("topics/create/", TopicCreateView.as_view(), name="topic-create"),
+    path("topics/", TopicListCreateView.as_view(), name="topics"),
+    # path("topics/create/", TopicCreateView.as_view(), name="topic-create"),
     path(
         "topics/update/<int:pk>/",
         TopicUpdateView.as_view(),
