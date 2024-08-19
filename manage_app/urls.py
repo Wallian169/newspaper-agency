@@ -13,8 +13,11 @@ from manage_app.views import (
     RedactorCreateView,
     RedactorUpdateView,
     RedactorDeleteView,
-    NewspaperListView, NewspaperDetailView, NewspaperCreateView,
-    NewspaperUpdateView, NewspaperDeleteView
+    NewspaperListView,
+    NewspaperDetailView,
+    NewspaperCreateView,
+    NewspaperUpdateView,
+    NewspaperDeleteView,
 )
 
 urlpatterns = [
