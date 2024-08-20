@@ -4,8 +4,6 @@ from django.urls import path
 
 from manage_app.views import (
     index,
-    TopicUpdateView,
-    TopicDeleteView,
     RedactorListView,
     RedactorDetailView,
     RedactorCreateView,

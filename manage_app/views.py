@@ -98,25 +98,6 @@ class TopicListCreateView(LoginRequiredMixin, View):
         )
 
 
-class TopicUpdateView(LoginRequiredMixin, generic.UpdateView):
-    model = Topic
-    fields = "__all__"
-    success_url = reverse_lazy("manage_app:topics")
-    template_name = "manage_app/create_update_form.html"
-
-
-class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
-    model = Topic
-    success_url = reverse_lazy("manage_app:topics")
-    template_name = "manage_app/confirm_delete.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["object_type"] = "topic"
-        context["object"] = self.object
-        return context
-
-
 class RedactorListView(LoginRequiredMixin, generic.ListView):
     model = Redactor
 
@@ -248,26 +229,59 @@ class NewspaperDeleteView(LoginRequiredMixin, generic.DeleteView):
         return context
 
 
-class TopicUpdateDeleteView(generic.UpdateView):
-    model = Topic
-    form_class = TopicForm
-    template_name = "manage_app/create_update_form.html"
+# class TopicUpdateDeleteView(generic.UpdateView):
+#     model = Topic
+#     form_class = TopicForm
+#     template_name = "manage_app/create_update_form.html"
+#     success_url = reverse_lazy("manage_app:topics")
+#
+#     def post(self, request, *args, **kwargs):
+#         if "delete" in request.POST:
+#             return render(
+#                 request,
+#                 'manage_app/confirm_delete.html',
+#                 {
+#                     "object": self.get_object(),
+#                     "object_type": "Topic"
+#                 }
+#             )
+#         return super().post(request, *args, **kwargs)
+#
+#     def form_valid(self, form):
+#         if self.request.POST.get("confirm_delete"):
+#             self.object.delete()
+#             return redirect(self.success_url)
+#         return super().form_valid(form)
+
+class TopicUpdateDeleteView(LoginRequiredMixin, View):
     success_url = reverse_lazy("manage_app:topics")
 
-    def post(self, request, *args, **kwargs):
-        if "delete" in request.POST:
-            return render(
-                request,
-                'manage_app/confirm_delete.html',
-                {
-                    "object": self.get_object(),
-                    "object_type": "Topic"
-                }
-            )
-        return super().post(request, *args, **kwargs)
+    def get(self, request, pk, *args, **kwargs):
+        topic = Topic.objects.get(pk=pk)
+        form = TopicForm(instance=topic)
 
-    def form_valid(self, form):
-        if self.request.POST.get("confirm_delete"):
-            self.object.delete()
+        # If 'delete' is in the query parameters, render the delete confirmation
+        if 'delete' in request.GET:
+            return render(
+                request, "manage_app/confirm_delete.html",
+                {"object": topic, "object_type": "Topic"})
+
+        return render(
+            request, "manage_app/create_update_form.html",
+            {"form": form, "object": topic})
+
+    def post(self, request, pk, *args, **kwargs):
+        topic = Topic.objects.get(pk=pk)
+
+        if "delete" in request.POST:
+            topic.delete()
             return redirect(self.success_url)
-        return super().form_valid(form)
+
+        form = TopicForm(request.POST, instance=topic)
+        if form.is_valid():
+            form.save()
+            return redirect(self.success_url)
+
+        return render(
+            request, "manage_app/create_update_form.html",
+            {"form": form, "object": topic})
