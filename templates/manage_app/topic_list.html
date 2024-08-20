@@ -41,10 +41,14 @@
                             <td>{{ topic.id }}</td>
                             <td>{{ topic }}</td>
                             <td>
-                                <a href="{% url 'manage_app:topic-update' pk=topic.id %}" class="btn btn-warning btn-sm">Update</a>
+                                <a href="{% url 'manage_app:topic-update-delete' pk=topic.id %}" class="btn btn-warning btn-sm">Update</a>
                             </td>
                             <td>
-                                <a href="{% url 'manage_app:topic-delete' pk=topic.id %}" class="btn btn-danger btn-sm">Delete</a>
+                              <form action="{% url 'manage_app:topic-update-delete' pk=topic.pk %}" method="post" onsubmit="return confirm('Are you sure you want to delete this topic?');">
+                                  {% csrf_token %}
+                                  <input type="hidden" name="delete" value="true">
+                                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                              </form>
                             </td>
                         </tr>
                     {% endfor %}
