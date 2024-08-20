@@ -3,7 +3,7 @@
 .idea/
 .vscode/
 *.iml
-.env
+newspaper_agency/.env
 venv/
 .pytest_cache/
 **__pycache__/
