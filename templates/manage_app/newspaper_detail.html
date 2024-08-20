@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>{{ newspaper }}</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 mb-3">
+        <h2 class="mb-4">{{ newspaper }} for {{ newspaper.published_date }}</h2>
+        
+        <div class="mb-4">
+            {{ newspaper.content|linebreaksbr }}
+        </div>
+        
+        <p class="font-weight-bold">Related Redactors:</p>
+        <ul class="list-group mb-4">
+            {% for publisher in newspaper.publishers.all %}
+                <li class="list-group-item">
+                    <a href="{% url 'manage_app:redactor-detail' pk=publisher.pk %}">
+                        {{ publisher.first_name }} {{ publisher.last_name }} ({{ publisher.username }})
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'manage_app:newspaper-update' pk=newspaper.pk %}" class="btn btn-warning">Update Info</a>
+            <a href="{% url 'manage_app:newspaper-delete' pk=newspaper.pk %}" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+{% endblock %}

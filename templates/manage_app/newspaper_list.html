@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Newspapers</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Newspapers</h1>
+            <a href="{% url 'manage_app:newspaper-create' %}" class="btn btn-success">Add a Newspaper</a>
+        </div>
+        <form action="" method="get" class="mb-4">
+            <div class="form-row">
+                <div class="col">
+                    {{ search_form.as_p }}
+                </div>
+                <div class="col-auto">
+                    <input type="submit" value="Search" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+        {% if newspaper_list %}
+            <ol class="list-group mb-3">
+                {% for newspaper in newspaper_list %}
+                    <li class="list-group-item">
+                      {% with forloop.counter0 as index %}
+                        {{ index|add:page_obj.start_index }}.
+                        <a href="{% url 'manage_app:newspaper-detail' pk=newspaper.pk %}">{{ newspaper }}</a>
+                        <p class="text-muted"> for {{ newspaper.published_date }}</p>
+                      {% endwith %}
+                    </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p class="text-muted">There are no newspapers yet.</p>
+        {% endif %}
+    </div>
+{% endblock %}
