@@ -41,10 +41,10 @@
                             <td>{{ topic.id }}</td>
                             <td>{{ topic }}</td>
                             <td>
-                                <a href="{% url 'manage_app:topic-update' pk=topic.id %}" class="btn btn-warning btn-sm">Update</a>
+                                <a href="{% url 'manage_app:topic-update-delete' pk=topic.id %}" class="btn btn-warning btn-sm">Update</a>
                             </td>
                             <td>
-                                <a href="{% url 'manage_app:topic-delete' pk=topic.id %}" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="{% url 'manage_app:topic-update-delete' pk=topic.id %}" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}
