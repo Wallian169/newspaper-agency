@@ -22,6 +22,14 @@
                 </li>
             {% endfor %}
         </ul>
+        <p>Related topics</p>
+        <ul class="list-group mb-4">
+            {% for topic in newspaper.topics.all %}
+                <li class="list-group-item">
+                    {{ topic }}
+                </li>
+            {% endfor %}
+        </ul>
         
         <div class="d-flex justify-content-between">
             <a href="{% url 'manage_app:newspaper-update' pk=newspaper.pk %}" class="btn btn-warning">Update Info</a>
